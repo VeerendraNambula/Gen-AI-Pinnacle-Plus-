@@ -13,5 +13,5 @@ Develop a simple linear regression model for predictive analysis. Evaluate model
 2. Run `python main.py`
 
 ## Sample Output
-- MSE: <value>
-- R2: <value>
+- MSE: <1.86>
+- R2: <0.07>
