@@ -1,13 +1,3 @@
-
----
-
-## ✅ Example: Day 1 Project – Linear Regression Model
-
-### 📁 Folder: `Day-01/`
-
-#### 📄 `Day-01/README.md`
-
-```markdown
 # Day 1: Develop a Simple Linear Regression Model
 
 > Predictive Analysis with Evaluation Metrics (MSE, R²)
@@ -34,8 +24,8 @@ Alternatively, synthetic data generated for demonstration.
 ## 📊 Results
 | Metric | Value |
 |-------|-------|
-| Mean Squared Error (MSE) | 10.23 |
-| R² Score | 0.97 |
+| Mean Squared Error (MSE) | 2.49 |
+| R² Score | 0.96 |
 
 ✅ High accuracy indicating good fit.
 
