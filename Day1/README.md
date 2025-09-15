@@ -7,40 +7,40 @@ Build a simple linear regression model to predict a target variable based on a s
 ---
 
 ## 🎯 Objective
-- Implement linear regression from scratch and using scikit-learn
+- Implement linear regression from scratch and using **scikit-learn**
 - Visualize the best-fit line
-- Evaluate model using MSE and R² score
+- Evaluate model using **MSE** and **R² score**
 
 ---
 
 ## 🧪 Dataset
 Used sample dataset: `Salary_Data.csv` (YearsExperience vs Salary)  
 Download link: [Kaggle - Salary Dataset](https://www.kaggle.com/datasets/karthickveerakumar/salary-data-simple-linear-regression)
+
 ---
 
 ## 📊 Results
-| Metric | Value |
-MSE on Training Set: 27228701.908034485
-RMSE on Training Set: 5218.112868464468
-R2 Score on Training Set: 0.9643747107705292
 
-MSE on Test Set: 50629462.73329226
-RMSE on Test Set: 7115.4383373965275
-R2 Score on Test Set: 0.9008812357081055
+| Metric    | Training Set | Test Set |
+|-----------|--------------|----------|
+| MSE       | 27,228,701.91 | 50,629,462.73 |
+| RMSE      | 5,218.11 | 7,115.44 |
+| R² Score  | 0.9644 | 0.9009 |
 
 ✅ High accuracy indicating good fit.
 
-Predicted salary for 9.3 years of experience will be $113240.73475129377
-Predicted salary for 5 years of experience will be $72251.34092530378
+**Predictions:**
+- Salary for **9.3 years** of experience: \$113,240.73  
+- Salary for **5 years** of experience: \$72,251.34  
 
 ---
 
 ## 🛠 Tech Stack
-- Python
-- Scikit-learn
-- Matplotlib
-- Pandas
-- NumPy
+- Python  
+- Scikit-learn  
+- Matplotlib  
+- Pandas  
+- NumPy  
 
 ---
 
