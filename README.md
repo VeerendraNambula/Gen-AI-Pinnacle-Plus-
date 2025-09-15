@@ -26,7 +26,6 @@ This repository documents my hands-on journey through the **Pinnacle Plus GenAI 
 | 3 | Decision Tree Classifier | ⏳ Not Started | Scikit-learn, Seaborn |
 | ... | ... | ... | ... |
 
-*(Update this table daily)*
 
 ---
 
