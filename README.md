@@ -22,7 +22,7 @@ This repository documents my hands-on journey through the **Pinnacle Plus GenAI 
 | Day | Project Title | Status | Tech Stack |
 |-----|---------------|--------|-----------|
 | 1 | Linear Regression Model | ✅ Done | Python, Scikit-learn, Pandas |
-| 2 | Multiple Regression Model | 🟡 In Progress | Python, Statsmodels, Matplotlib |
+| 2 | Develop a Multiple Regression Model | ✅ Done | Python, Scikit-learn, Statsmodels |
 | 3 | Decision Tree Classifier | ⏳ Not Started | Scikit-learn, Seaborn |
 | ... | ... | ... | ... |
 
