@@ -1,14 +1,14 @@
 # Day 2: Multiple Linear Regression
 
-Build a multiple linear regression model to estimate startup profit from research and development spend, administration spend, marketing spend, and state.
+Estimate startup profit from research and development spend, administration spend, marketing spend, and state.
 
-## Objective
+## Learning objectives
 
-- Prepare numeric and categorical predictors for regression.
-- Fit a multiple linear regression model with scikit-learn.
-- Compare predictions with held-out test values.
-- Evaluate performance with MSE, RMSE, R², and adjusted R².
-- Inspect actual-versus-predicted values and residuals.
+- Prepare numeric and categorical predictors.
+- Fit multiple linear regression with scikit-learn.
+- Evaluate predictions on a held-out test set.
+- Interpret coefficients cautiously and inspect residual patterns.
+- Reuse the model preparation and evaluation functions in tests or other scripts.
 
 ## Dataset
 
@@ -28,23 +28,24 @@ pip install -r requirements.txt
 python Day2/multiple_linear_regression.py
 ```
 
-The script uses a one-third test split with `random_state=1`, prints model metrics and coefficients, and displays actual-versus-predicted and residual plots.
+The script uses a one-third test split with `random_state=1`, prints train/test metrics and coefficients, and displays actual-versus-predicted and residual plots.
 
-## Recorded results
+## Tests
 
-The previous project notes recorded the following values:
+```bash
+pip install pytest
+python -m pytest -q
+```
 
-| Metric | Recorded value |
-| --- | ---: |
-| Test MSE | 783,376,878 |
-| Test R² | 0.950 |
-| Adjusted R² | 0.945 |
+The tests use synthetic data and do not require the external CSV dataset.
 
-These values are historical notes, not a verified result from the current script revision. Re-run the script with the downloaded dataset to reproduce and confirm the metrics.
+## Results
+
+Metrics are calculated from the dataset at runtime. No fixed benchmark is claimed; rerun the current implementation against the downloaded dataset to obtain reproducible values.
 
 ## Limitations
 
 - This is a small, single-dataset exercise; results may not generalize to other startups or business contexts.
 - Coefficients describe the fitted linear model and should not be interpreted as causal effects.
-- Residual plots provide a basic diagnostic only; they do not establish that every regression assumption is satisfied.
-- No cross-validation, regularization, feature scaling, or external validation is included.
+- Residual plots provide basic diagnostics and do not establish that every regression assumption is satisfied.
+- Cross-validation, regularization, and external validation are not implemented.
