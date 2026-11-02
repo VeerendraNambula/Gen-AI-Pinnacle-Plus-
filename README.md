@@ -27,19 +27,19 @@ Gen-AI-Pinnacle-Plus-/
 
 ## Getting started
 
-Use Python 3.10 or later. Create a virtual environment and install the dependencies needed by the project you want to run.
+Use Python 3.10 or later. Create a virtual environment and install the shared dependencies from `requirements.txt`.
 
 For the Day 1 regression exercise:
 
 ```bash
-pip install numpy pandas scikit-learn matplotlib
+pip install -r requirements.txt
 python Day1/linear_regression.py
 ```
 
 For the Day 2 exercise:
 
 ```bash
-pip install numpy pandas scikit-learn statsmodels matplotlib seaborn
+pip install -r requirements.txt
 python Day2/multiple_linear_regression.py
 ```
 

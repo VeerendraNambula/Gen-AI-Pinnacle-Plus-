@@ -1,56 +1,50 @@
-# Day 2: Develop a Multiple Regression Model
+# Day 2: Multiple Linear Regression
 
-> Predicting outcomes using multiple independent variables with full statistical evaluation.
+Build a multiple linear regression model to estimate startup profit from research and development spend, administration spend, marketing spend, and state.
 
-This project implements **Multiple Linear Regression** to model the relationship between several predictors and a continuous response variable. We evaluate significance, fit, and assumptions using both machine learning and statistical approaches.
+## Objective
 
----
+- Prepare numeric and categorical predictors for regression.
+- Fit a multiple linear regression model with scikit-learn.
+- Compare predictions with held-out test values.
+- Evaluate performance with MSE, RMSE, R², and adjusted R².
+- Inspect actual-versus-predicted values and residuals.
 
-## 🎯 Objectives
-- Implement multiple regression using `scikit-learn` and `statsmodels`
-- Handle categorical variables via one-hot encoding
-- Interpret regression coefficients and p-values
-- Evaluate model performance using:
-  - MSE
-  - R² and Adjusted R²
-  - Residual plots
-- Perform basic feature selection
+## Dataset
 
----
+The script expects `50_Startups.csv` in this directory.
 
-## 🧪 Dataset
-Used: **50_Startups.csv**  
-Features: `R&D Spend`, `Administration`, `Marketing Spend`, `State`  
-Target: `Profit`
+- Features: `R&D Spend`, `Administration`, `Marketing Spend`, and `State`
+- Target: `Profit`
 
-👉 Download: [Kaggle - 50_Startups](https://www.kaggle.com/farhanmd29/50-startups)
+Download the dataset from [Kaggle – 50 Startups](https://www.kaggle.com/datasets/farhanmd29/50-startups) and place it at `Day2/50_Startups.csv`. The dataset is not included in this repository.
 
-If not available, synthetic data is generated in code.
+## Setup and run
 
----
+From the repository root:
 
-## 📊 Results
+```bash
+pip install -r requirements.txt
+python Day2/multiple_linear_regression.py
+```
 
-| Metric | Value |
-|-------|-------|
-| Mean Squared Error (MSE) | 783,376,878 |
-| R² Score | 0.950 |
+The script uses a one-third test split with `random_state=1`, prints model metrics and coefficients, and displays actual-versus-predicted and residual plots.
+
+## Recorded results
+
+The previous project notes recorded the following values:
+
+| Metric | Recorded value |
+| --- | ---: |
+| Test MSE | 783,376,878 |
+| Test R² | 0.950 |
 | Adjusted R² | 0.945 |
 
-✅ Strong explanatory power; R&D Spend is the most significant predictor.
+These values are historical notes, not a verified result from the current script revision. Re-run the script with the downloaded dataset to reproduce and confirm the metrics.
 
----
+## Limitations
 
-## 📈 Key Insights
-- **R&D Spend** has the highest positive impact on profit.
-- Marketing Spend shows moderate influence.
-- Administration cost is less significant.
-- Assumptions checked: Linearity, Homoscedasticity, Normality of residuals.
-
----
-
-## 🛠 Requirements
-
-Install dependencies:
-```bash
-pip install numpy pandas scikit-learn statsmodels matplotlib seaborn
+- This is a small, single-dataset exercise; results may not generalize to other startups or business contexts.
+- Coefficients describe the fitted linear model and should not be interpreted as causal effects.
+- Residual plots provide a basic diagnostic only; they do not establish that every regression assumption is satisfied.
+- No cross-validation, regularization, feature scaling, or external validation is included.

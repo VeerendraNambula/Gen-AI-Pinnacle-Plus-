@@ -1,0 +1,15 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Downloaded datasets and generated model artifacts
+Day1/Salary_Data.csv
+Day2/50_Startups.csv
+models/
+*.pkl
+
+# Editor and OS files
+.DS_Store
+.vscode/

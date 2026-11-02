@@ -8,7 +8,13 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import r2_score
 
 # Loading the dataset
-salary_df = pd.read_csv(r"C:\Users\nambu\Downloads\Salary_Data.csv")
+DATA_PATH = Path(__file__).resolve().parent / "Salary_Data.csv"
+if not DATA_PATH.exists():
+    raise FileNotFoundError(
+        f"Dataset not found at {DATA_PATH}. Download Salary_Data.csv "
+        "and place it in the Day1 directory."
+    )
+salary_df = pd.read_csv(DATA_PATH)
 
 salary_df.head()
 

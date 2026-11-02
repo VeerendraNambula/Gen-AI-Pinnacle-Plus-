@@ -7,7 +7,7 @@ Build a simple linear regression model to predict a target variable based on a s
 ---
 
 ## 🎯 Objective
-- Implement linear regression from scratch and using **scikit-learn**
+- Implement linear regression from scratch with gradient descent
 - Visualize the best-fit line
 - Evaluate model using **MSE** and **R² score**
 
@@ -46,6 +46,6 @@ Download link: [Kaggle - Salary Dataset](https://www.kaggle.com/datasets/karthic
 
 ## 💻 Code Usage
 
-Install dependencies:
+Download `Salary_Data.csv` from the dataset link above and place it in the `Day1/` directory. Then install dependencies:
 ```bash
 pip install numpy pandas scikit-learn matplotlib
