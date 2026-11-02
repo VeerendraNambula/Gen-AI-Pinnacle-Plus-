@@ -27,7 +27,7 @@ Download link: [Kaggle - Salary Dataset](https://www.kaggle.com/datasets/karthic
 | RMSE      | 5,218.11 | 7,115.44 |
 | R² Score  | 0.9644 | 0.9009 |
 
-✅ High accuracy indicating good fit.
+The recorded split shows a strong fit; rerun the script with the downloaded dataset to reproduce these values.
 
 **Predictions:**
 - Salary for **9.3 years** of experience: \$113,240.73  

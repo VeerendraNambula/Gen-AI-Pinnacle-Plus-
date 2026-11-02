@@ -9,7 +9,7 @@ The repository currently contains two documented projects. New work should be ad
 | Project | Topic | Main tools |
 | --- | --- | --- |
 | [Day 1 – Simple Linear Regression](Day1/README.md) | Single-feature regression, model fitting, MSE and R² evaluation | Python, Pandas, NumPy, scikit-learn, Matplotlib |
-| [Day 2 – Multiple Linear Regression](Day2/README.md) | Multiple predictors, categorical encoding, coefficient interpretation and regression diagnostics | Python, Pandas, NumPy, scikit-learn, Statsmodels |
+| [Day 2 – Multiple Linear Regression](Day2/README.md) | Multiple predictors, categorical encoding, coefficient interpretation and residual diagnostics | Python, Pandas, NumPy, scikit-learn, Matplotlib |
 
 ## Repository structure
 
@@ -50,7 +50,7 @@ See each project's README for its dataset, methodology, evaluation metrics, and 
 - Supervised learning and regression
 - Feature preparation and categorical encoding
 - Model evaluation with MSE and R²
-- Statistical interpretation of regression models
+- Regression coefficients and residual diagnostics
 - Visualization and communicating analytical results
 
 ## Adding a new project
