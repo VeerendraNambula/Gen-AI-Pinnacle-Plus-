@@ -1,54 +1,63 @@
-# Pinnacle Plus GenAI Projects
+# Applied Machine Learning & Generative AI Projects
 
-> A 50+ Project Journey in Generative AI, Machine Learning, LLMs & Agentic Systems  
-> 🔥 One project completed every day | Using LangChain, ChatGPT, Gemini, LlamaIndex, CrewAI, AutoGen, RAG, Transformers & more
+A hands-on learning repository for implementing machine-learning concepts and documenting experiments with code, results, and visualizations.
 
-This repository documents my hands-on journey through the **Pinnacle Plus GenAI Program**, where I'm completing **one real-world AI/ML project per day** — covering topics like:
-- Predictive Modeling
-- Deep Learning & NLP
-- Retrieval-Augmented Generation (RAG)
-- Multi-Agent Systems
-- Prompt Engineering
-- Fine-tuning LLMs
-- Image Generation & ControlNets
-- AI Workflows & Automation
+The repository currently contains two documented projects. New work should be added as it is completed, with its own explanation, reproducible code, and results.
 
-🎯 Goal: Build industry-ready skills in cutting-edge AI technologies and create a strong portfolio.
+## Project index
 
----
+| Project | Topic | Main tools |
+| --- | --- | --- |
+| [Day 1 – Simple Linear Regression](Day1/README.md) | Single-feature regression, model fitting, MSE and R² evaluation | Python, Pandas, NumPy, scikit-learn, Matplotlib |
+| [Day 2 – Multiple Linear Regression](Day2/README.md) | Multiple predictors, categorical encoding, coefficient interpretation and regression diagnostics | Python, Pandas, NumPy, scikit-learn, Statsmodels |
 
-## 🚀 Project Roadmap
+## Repository structure
 
-| Day | Project Title | Status | Tech Stack |
-|-----|---------------|--------|-----------|
-| 1 | Linear Regression Model | ✅ Done | Python, Scikit-learn, Pandas |
-| 2 | Develop a Multiple Regression Model | ✅ Done | Python, Scikit-learn, Statsmodels |
-| 3 | Decision Tree Classifier | ⏳ Not Started | Scikit-learn, Seaborn |
-| ... | ... | ... | ... |
+```text
+Gen-AI-Pinnacle-Plus-/
+├── Day1/
+│   ├── README.md
+│   ├── linear_regression.py
+│   └── visualizations
+├── Day2/
+│   ├── README.md
+│   └── multiple_linear_regression.py
+└── README.md
+```
 
+## Getting started
 
----
+Use Python 3.10 or later. Create a virtual environment and install the dependencies needed by the project you want to run.
 
-## 🛠 Tools & Frameworks Used
-- **LLMs**: GPT-4, ChatGPT, Google Gemini, Claude
-- **Frameworks**: LangChain, LlamaIndex, CrewAI, AutoGen, LangGraph
-- **ML/DL**: PyTorch, TensorFlow, Scikit-learn
-- **NLP**: Transformers, Tokenization, BERT, T5
-- **RAG**: Vector DBs (ChromaDB), Embeddings, Retrievers
-- **Agents**: Agentic workflows, Planning, Reflection, Tool Use
-- **Deployment/UI**: Streamlit, Chainlit, AWS SageMaker
-- **Image Models**: Stable Diffusion, ControlNet, DDPM
+For the Day 1 regression exercise:
 
----
-
-## 📂 How to Run Any Project
-Each `Day-XX/` folder contains:
-- A detailed `README.md`
-- Source code (`.py`, `.ipynb`)
-- Requirements (if needed)
-
-To run:
 ```bash
-cd Day-01
-pip install -r requirements.txt  # if present
-python main.py                   # or jupyter notebook
+pip install numpy pandas scikit-learn matplotlib
+python Day1/linear_regression.py
+```
+
+For the Day 2 exercise:
+
+```bash
+pip install numpy pandas scikit-learn statsmodels matplotlib seaborn
+python Day2/multiple_linear_regression.py
+```
+
+See each project's README for its dataset, methodology, evaluation metrics, and observations.
+
+## Topics explored
+
+- Supervised learning and regression
+- Feature preparation and categorical encoding
+- Model evaluation with MSE and R²
+- Statistical interpretation of regression models
+- Visualization and communicating analytical results
+
+## Adding a new project
+
+For each new project, include:
+- A short problem statement and objective.
+- Dataset source and data-preparation steps.
+- Reproducible setup and run instructions.
+- Evaluation metrics and actual results.
+- Visualizations or sample outputs where useful.
