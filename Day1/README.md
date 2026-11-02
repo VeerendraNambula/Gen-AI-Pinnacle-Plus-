@@ -1,51 +1,41 @@
-# Day 1: Develop a Simple Linear Regression Model
+# Day 1: Simple Linear Regression from Scratch
 
-> Predictive Analysis with Evaluation Metrics (MSE, R²)
+Implement a single-feature linear regression model with batch gradient descent and evaluate its predictions on a held-out test set.
 
-Build a simple linear regression model to predict a target variable based on a single feature. Evaluate performance using standard metrics.
+## Learning objectives
 
----
+- Implement gradient descent without using a regression estimator.
+- Standardize the feature and target during optimization for stable convergence.
+- Convert predictions back to the original salary scale.
+- Evaluate with MAE, RMSE, and R².
+- Visualize the fitted line and optimization cost.
 
-## 🎯 Objective
-- Implement linear regression from scratch with gradient descent
-- Visualize the best-fit line
-- Evaluate model using **MSE** and **R² score**
+## Dataset
 
----
+The script expects `Salary_Data.csv` in this directory with columns:
 
-## 🧪 Dataset
-Used sample dataset: `Salary_Data.csv` (YearsExperience vs Salary)  
-Download link: [Kaggle - Salary Dataset](https://www.kaggle.com/datasets/karthickveerakumar/salary-data-simple-linear-regression)
+- `YearsExperience`
+- `Salary`
 
----
+Download the dataset from [Kaggle – Salary Dataset](https://www.kaggle.com/datasets/karthickveerakumar/salary-data-simple-linear-regression). The dataset is not committed to this repository.
 
-## 📊 Results
+## Setup and run
 
-| Metric    | Training Set | Test Set |
-|-----------|--------------|----------|
-| MSE       | 27,228,701.91 | 50,629,462.73 |
-| RMSE      | 5,218.11 | 7,115.44 |
-| R² Score  | 0.9644 | 0.9009 |
+From the repository root:
 
-The recorded split shows a strong fit; rerun the script with the downloaded dataset to reproduce these values.
-
-**Predictions:**
-- Salary for **9.3 years** of experience: \$113,240.73  
-- Salary for **5 years** of experience: \$72,251.34  
-
----
-
-## 🛠 Tech Stack
-- Python  
-- Scikit-learn  
-- Matplotlib  
-- Pandas  
-- NumPy  
-
----
-
-## 💻 Code Usage
-
-Download `Salary_Data.csv` from the dataset link above and place it in the `Day1/` directory. Then install dependencies:
 ```bash
-pip install numpy pandas scikit-learn matplotlib
+pip install -r requirements.txt
+python Day1/linear_regression.py
+```
+
+The script uses an 80/20 train/test split with `random_state=42`, prints train and test metrics, predicts salary for five years of experience, and displays the fitted line and cost history.
+
+## Results
+
+Metrics are calculated from the downloaded dataset at runtime. No fixed benchmark is published because the dataset version and current implementation should be evaluated together.
+
+## Implementation notes
+
+The gradient-descent model standardizes its input feature and target internally. This avoids unstable updates caused by optimizing directly against salary values with a relatively large numeric scale. Predictions are returned in the original salary units.
+
+The implementation is intended for learning and is not a substitute for a validated compensation model.
