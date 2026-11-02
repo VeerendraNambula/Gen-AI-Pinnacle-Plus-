@@ -1,145 +1,135 @@
-# Importing necessary libraries
+"""Linear regression from scratch on the Salary_Data learning dataset."""
+
 from pathlib import Path
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import r2_score
 
-# Loading the dataset
 DATA_PATH = Path(__file__).resolve().parent / "Salary_Data.csv"
-if not DATA_PATH.exists():
-    raise FileNotFoundError(
-        f"Dataset not found at {DATA_PATH}. Download Salary_Data.csv "
-        "and place it in the Day1 directory."
-    )
-salary_df = pd.read_csv(DATA_PATH)
 
-salary_df.head()
 
-# Checking the dimensions of the DataFrame
-salary_df.shape
-
-# Checking for any missing values
-salary_df.isnull().sum()
-
-# Separating the features
-X = salary_df.drop(['Salary'], axis=1)
-y = salary_df['Salary']
-
-# Splitting the data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Defining a custom Linear Regression class
 class MyLinearRegression:
+    """Batch gradient-descent linear regression with feature/target scaling."""
 
-  def __init__(self, lr = 0.01, n_iters = 1000):
-    self.lr = lr
-    self.n_iters = n_iters
-    self.weights = None
-    self.bias = None
-    self.cost_history = []
+    def __init__(self, lr: float = 0.05, n_iters: int = 1500):
+        if lr <= 0 or n_iters < 1:
+            raise ValueError("lr and n_iters must be positive.")
+        self.lr = lr
+        self.n_iters = n_iters
+        self.weights = None
+        self.bias = None
+        self.cost_history = []
+        self.x_mean = None
+        self.x_scale = None
+        self.y_mean = None
+        self.y_scale = None
 
-  def compute_cost(self, y, y_pred, m):
-    return (1/(2*m))*np.sum((y_pred-y)**2)
+    @staticmethod
+    def compute_cost(y, y_pred, sample_count):
+        return float(np.sum((y_pred - y) ** 2) / (2 * sample_count))
 
-  def fit(self, X, y):
-    m, n = X.shape
-    self.weights = np.zeros(n)
-    self.bias = 0
+    def fit(self, X, y):
+        X = np.asarray(X, dtype=float)
+        y = np.asarray(y, dtype=float).reshape(-1)
+        if X.ndim != 2 or len(X) != len(y) or len(y) == 0:
+            raise ValueError("X must be 2D and contain the same non-zero number of rows as y.")
 
-    # Gradient Descent loop
-    for _ in range(self.n_iters):
-      y_pred = np.dot(X, self.weights) + self.bias
-      cost = self.compute_cost(y, y_pred, m)
-      self.cost_history.append(cost)
+        self.x_mean = X.mean(axis=0)
+        self.x_scale = X.std(axis=0)
+        self.x_scale[self.x_scale == 0] = 1.0
+        self.y_mean = float(y.mean())
+        self.y_scale = float(y.std()) or 1.0
 
-      # Calculate gradients for weights (dw) and bias (db)
-      dw = (1/m)*np.dot(X.T, (y_pred-y))
-      db = (1/m)*np.sum(y_pred - y)
+        X_scaled = (X - self.x_mean) / self.x_scale
+        y_scaled = (y - self.y_mean) / self.y_scale
+        sample_count, feature_count = X_scaled.shape
+        self.weights = np.zeros(feature_count)
+        self.bias = 0.0
+        self.cost_history = []
 
-      # Update weights and bias using the learning rate and gradients
-      self.weights -= self.lr*dw
-      self.bias -= self.lr*db
+        for _ in range(self.n_iters):
+            predictions = X_scaled @ self.weights + self.bias
+            self.cost_history.append(self.compute_cost(y_scaled, predictions, sample_count))
+            error = predictions - y_scaled
+            self.weights -= self.lr * (X_scaled.T @ error) / sample_count
+            self.bias -= self.lr * float(error.mean())
+        return self
 
-  def predict(self, X):
-    # Make predictions using the learned weights and bias
-    y_pred = np.dot(X, self.weights) + self.bias
-    return y_pred
-  
-  # Creating an instance of the custom MyLinearRegression model with default parameters
-mylr = MyLinearRegression(n_iters=1500)
-
-# Training the custom linear regression model using the training data
-mylr.fit(X_train, y_train)
-
-# Printing the learned weights, bias and cost history of the trained model
-print("Weights:", mylr.weights)
-print("Bias:", mylr.bias)
-print("Cost History:")
-for i, cost in enumerate(mylr.cost_history):
-    print(f"Iteration {i+1:4d}: Cost = {cost:,.4f}")
-
-# Making predictions on the training data using the trained model
-y_pred_train = mylr.predict(X_train)
-print(y_pred_train)
-
-# Calculating evaluation metrics (MSE, RMSE, R2 Score) on the training set
-mse_train = np.mean((y_train - y_pred_train) ** 2)
-
-rmse_train = np.sqrt(mse_train)
-
-ss_res_train = np.sum((y_train - y_pred_train) ** 2)
-ss_tot_train = np.sum((y_train - np.mean(y_train)) ** 2)
-r2_train = 1 - (ss_res_train / ss_tot_train)
+    def predict(self, X):
+        if self.weights is None:
+            raise RuntimeError("Call fit before predict.")
+        X = np.asarray(X, dtype=float)
+        X_scaled = (X - self.x_mean) / self.x_scale
+        scaled_predictions = X_scaled @ self.weights + self.bias
+        return scaled_predictions * self.y_scale + self.y_mean
 
 
-print("MSE on Training Set:", mse_train)
-print("RMSE on Training Set:", rmse_train)
-print("R2 Score on Training Set:", r2_train)
+def main():
+    if not DATA_PATH.exists():
+        raise FileNotFoundError(
+            f"Dataset not found at {DATA_PATH}. Download Salary_Data.csv "
+            "and place it in the Day1 directory."
+        )
 
-# Making predictions on the testing data using the trained model
-y_pred_test = mylr.predict(X_test)
-print(y_pred_test)
+    salary_df = pd.read_csv(DATA_PATH)
+    required = {"YearsExperience", "Salary"}
+    missing = required.difference(salary_df.columns)
+    if missing:
+        raise ValueError(f"Dataset is missing required columns: {sorted(missing)}")
 
-# Calculating evaluation metrics (MSE, RMSE, R2 Score) on the testing set
-mse_test = np.mean((y_test - y_pred_test) ** 2)
+    data = salary_df[list(required)].apply(pd.to_numeric, errors="coerce").dropna()
+    X = data[["YearsExperience"]]
+    y = data["Salary"]
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
 
-rmse_test = np.sqrt(mse_test)
+    model = MyLinearRegression().fit(X_train, y_train)
+    train_predictions = model.predict(X_train)
+    test_predictions = model.predict(X_test)
 
-ss_res_test = np.sum((y_test - y_pred_test) ** 2)
-ss_tot_test = np.sum((y_test - np.mean(y_test)) ** 2)
-r2_test = 1 - (ss_res_test / ss_tot_test)
+    for label, actual, predicted in (
+        ("Train", y_train, train_predictions),
+        ("Test", y_test, test_predictions),
+    ):
+        print(
+            f"{label}: MAE={mean_absolute_error(actual, predicted):,.2f} | "
+            f"RMSE={np.sqrt(mean_squared_error(actual, predicted)):,.2f} | "
+            f"R²={r2_score(actual, predicted):.4f}"
+        )
 
-print("MSE on Test Set:", mse_test)
-print("RMSE on Test Set:", rmse_test)
-print("R2 Score on Test Set:", r2_test)
+    print("Learned weights (scaled feature space):", model.weights)
+    print("Learned bias (scaled target space):", model.bias)
+    print(f"Predicted salary for 5 years: {model.predict([[5]])[0]:,.2f}")
 
-# Visualizing the training and testing data along with the best-fit line from the trained model
-plt.figure(figsize=(8, 6))
-plt.scatter(X_train, y_train, marker='x', color='blue', label='Training data')
-plt.scatter(X_test, y_test, marker='o', color='green', label='Testing data')
-plt.plot(X_train, mylr.predict(X_train), color='red', linewidth=2, label='Best fit line')
-plt.title('Salary vs Experience with Linear Regression Fit')
-plt.xlabel('Years of Experience')
-plt.ylabel('Salary')
-plt.legend()
-plt.show()
+    order = np.argsort(X_train["YearsExperience"].to_numpy())
+    plt.figure(figsize=(8, 6))
+    plt.scatter(X_train["YearsExperience"], y_train, marker="x", label="Training data")
+    plt.scatter(X_test["YearsExperience"], y_test, marker="o", label="Test data")
+    plt.plot(
+        X_train["YearsExperience"].to_numpy()[order],
+        train_predictions[order],
+        linewidth=2,
+        label="Fitted line",
+    )
+    plt.title("Salary vs Experience — Linear Regression")
+    plt.xlabel("Years of Experience")
+    plt.ylabel("Salary")
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
 
-# Plotting the cost history to visualize how the cost function decreased during training
-plt.figure(figsize=(8, 6))
-plt.plot(mylr.cost_history)
-plt.title('Cost Function History')
-plt.xlabel('Number of Iterations')
-plt.ylabel('Cost')
-plt.show()
+    plt.figure(figsize=(8, 5))
+    plt.plot(model.cost_history)
+    plt.title("Gradient Descent Cost History")
+    plt.xlabel("Iteration")
+    plt.ylabel("Scaled Mean Squared Error / 2")
+    plt.tight_layout()
+    plt.show()
 
-# Example prediction-1
-predicted_salary_9_3 = 9.3 * mylr.weights[0] + mylr.bias
-print(f"Predicted salary for 9.3 years of experience will be ${predicted_salary_9_3}")
 
-# Example prediction-2
-predicted_salary_5 = 5 * mylr.weights[0] + mylr.bias
-print(f"Predicted salary for 5 years of experience will be ${predicted_salary_5}")
+if __name__ == "__main__":
+    main()
