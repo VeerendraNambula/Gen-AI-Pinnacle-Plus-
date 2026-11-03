@@ -22,3 +22,21 @@ def test_predict_requires_fitted_model():
 def test_rejects_mismatched_training_rows():
     with pytest.raises(ValueError, match="same non-zero number"):
         MyLinearRegression().fit([[1.0], [2.0]], [3.0])
+
+
+
+def test_fit_rejects_non_finite_training_values():
+    with pytest.raises(ValueError, match="finite numeric"):
+        MyLinearRegression().fit([[1.0], [float("nan")]], [2.0, 3.0])
+
+
+def test_predict_rejects_wrong_feature_count():
+    model = MyLinearRegression().fit([[1.0], [2.0], [3.0]], [2.0, 4.0, 6.0])
+    with pytest.raises(ValueError, match="2D array with 1 feature"):
+        model.predict([[1.0, 2.0]])
+
+
+def test_predict_rejects_non_finite_values():
+    model = MyLinearRegression().fit([[1.0], [2.0], [3.0]], [2.0, 4.0, 6.0])
+    with pytest.raises(ValueError, match="finite numeric"):
+        model.predict([[float("inf")]])
