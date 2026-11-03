@@ -34,8 +34,10 @@ class MyLinearRegression:
     def fit(self, X, y):
         X = np.asarray(X, dtype=float)
         y = np.asarray(y, dtype=float).reshape(-1)
-        if X.ndim != 2 or len(X) != len(y) or len(y) == 0:
-            raise ValueError("X must be 2D and contain the same non-zero number of rows as y.")
+        if X.ndim != 2 or X.shape[1] == 0 or len(X) != len(y) or len(y) == 0:
+            raise ValueError("X must be 2D with at least one feature and contain the same non-zero number of rows as y.")
+        if not np.isfinite(X).all() or not np.isfinite(y).all():
+            raise ValueError("X and y must contain only finite numeric values.")
 
         self.x_mean = X.mean(axis=0)
         self.x_scale = X.std(axis=0)
@@ -62,6 +64,10 @@ class MyLinearRegression:
         if self.weights is None:
             raise RuntimeError("Call fit before predict.")
         X = np.asarray(X, dtype=float)
+        if X.ndim != 2 or X.shape[1] != len(self.weights):
+            raise ValueError(f"X must be a 2D array with {len(self.weights)} feature(s).")
+        if not np.isfinite(X).all():
+            raise ValueError("X must contain only finite numeric values.")
         X_scaled = (X - self.x_mean) / self.x_scale
         scaled_predictions = X_scaled @ self.weights + self.bias
         return scaled_predictions * self.y_scale + self.y_mean
